@@ -36,7 +36,7 @@ export const asignarAsignaturasAProfesor = async (nombreProfesor: string, nombre
   }
 
   asignaturas.forEach(asignatura => {
-    // Asegurarse de que solo se añade si no está ya en el array
+    
     if (!profesor.asignaturasImparte.includes(asignatura._id)) {
       profesor.asignaturasImparte.push(asignatura._id);
     }
@@ -76,7 +76,7 @@ export const eliminarProfesorPorNombre = async (nombre: string) => {
 };
 
 /////////////////////////////////////////////ELIMINAR ASIGNATURA DE PROFESOR POR NOMBRE///////////////////////////////////
-//elimina la asignatura mediante el nombre en el vector de asignaturasImparte del profesor
+
 export const eliminarAsignaturaDeProfesorPorNombre = async (nombreProfesor: string, nombreAsignatura: string) => {
   const profesor = await Profesor.findOne({ nombre: nombreProfesor });
 

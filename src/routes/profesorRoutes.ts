@@ -7,6 +7,8 @@ import {
   asignarAsignaturasAProfesor,
   eliminarProfesorPorNombre,
   actualizarAsignaturasProfesorPorNombre,
+  eliminarAsignaturaDeProfesorPorNombre,
+
 } from '../services/profesorService';
 
 const router = Router();
@@ -57,6 +59,18 @@ router.put('/:nombre/asignaturas', async (req: Request, res: Response) => {
     const { nombre } = req.params;
     const { nombresAsignaturas } = req.body;
     const profesor = await asignarAsignaturasAProfesor(nombre, nombresAsignaturas);
+    res.status(200).json(profesor);
+  } catch (error) {
+    const err = error as Error;
+    res.status(400).json({ error: err.message });
+  }
+});
+/////////////////////////////////////////////ELIMINAR ASIGNATURA DE PROFESOR POR NOMBRE//////////////////////////////////
+router.delete('/:nombre/asignatura', async (req: Request, res: Response) => {
+  try {
+    const { nombre } = req.params;
+    const { nombreAsignatura } = req.body;
+    const profesor = await eliminarAsignaturaDeProfesorPorNombre(nombre, nombreAsignatura);
     res.status(200).json(profesor);
   } catch (error) {
     const err = error as Error;
