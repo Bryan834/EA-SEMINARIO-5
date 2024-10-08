@@ -66,7 +66,7 @@ router.put('/:nombre/asignaturas', async (req: Request, res: Response) => {
   }
 });
 /////////////////////////////////////////////ELIMINAR ASIGNATURA DE PROFESOR POR NOMBRE//////////////////////////////////
-router.delete('/:nombre/asignatura', async (req: Request, res: Response) => {
+router.delete('/:nombre/asignaturas', async (req: Request, res: Response) => {
   try {
     const { nombre } = req.params;
     const { nombreAsignatura } = req.body;
