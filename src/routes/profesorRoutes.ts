@@ -17,14 +17,15 @@ router.use(cors());
 // Crear un nuevo profesor
 router.post('/', async (req: Request, res: Response) => {
   try {
-    const { nombre, edad } = req.body;
-    const profesor = await crearProfesor(nombre, edad);
+    const { nombre, edad } = req.query; 
+    const profesor = await crearProfesor(String(nombre), Number(edad)); 
     res.status(201).json(profesor);
   } catch (error) {
     const err = error as Error;
     res.status(400).json({ error: err.message });
   }
 });
+
 
 // Listar todos los profesores
 router.get('/', async (req: Request, res: Response) => {
@@ -93,5 +94,6 @@ router.put('/:nombre/asignaturas/actualizar', async (req: Request, res: Response
     res.status(400).json({ error: err.message });
   }
 });
+
 
 export default router;
