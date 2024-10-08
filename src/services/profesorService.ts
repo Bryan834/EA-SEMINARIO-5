@@ -1,23 +1,23 @@
 import Profesor from '../models/profesor';
 import Asignatura from '../models/asignatura';
 
-// Crear un nuevo profesor
+/////////////////////////////////////////CREAR PROFESOR////////////////////////////////////////
 export const crearProfesor = async (nombre: string, edad: number) => {
   const profesor = new Profesor({ nombre, edad });
   return await profesor.save();
 };
 
-// Listar todos los profesores
+/////////////////////////////////////////LISTAR PROFESORES//////////////////////////////////////
 export const listarProfesores = async () => {
   return await Profesor.find().populate('asignaturasImparte');
 };
 
-// Ver un profesor por nombre
+/////////////////////////////////////////VER PROFESOR POR NOMBRE/////////////////////////////////////
 export const verProfesorPorNombre = async (nombre: string) => {
   return await Profesor.findOne({ nombre }).populate('asignaturasImparte');
 };
 
-// Asignar asignaturas a un profesor
+/////////////////////////////////////////ASIGNAR ASIGNATURAS A PROFESOR/////////////////////////////////////
 export const asignarAsignaturasAProfesor = async (nombreProfesor: string, nombresAsignaturas: string[]) => {
   const profesor = await Profesor.findOne({ nombre: nombreProfesor });
 
@@ -47,7 +47,8 @@ export const asignarAsignaturasAProfesor = async (nombreProfesor: string, nombre
   return profesor;
 };
 
-// Actualizar asignaturas de un profesor por nombre
+
+///////////////////////////////ACTUALIZAR ASIGNATURAS DE PROFESOR POR NOMBRE///////////////////////////
 export const actualizarAsignaturasProfesorPorNombre = async (nombreProfesor: string, nuevasAsignaturas: string[]) => {
   const profesor = await Profesor.findOne({ nombre: nombreProfesor });
 
@@ -68,11 +69,34 @@ export const actualizarAsignaturasProfesorPorNombre = async (nombreProfesor: str
   console.log(`Asignaturas actualizadas para ${nombreProfesor}`);
 };
 
-// Eliminar un profesor por nombre
+/////////////////////////////////////ELIMINAR PROFESOR POR NOMBRE////////////////////////////////////////
 export const eliminarProfesorPorNombre = async (nombre: string) => {
   const resultado = await Profesor.findOneAndDelete({ nombre });
   return resultado;
 };
+
+/////////////////////////////////////////////ELIMINAR ASIGNATURA DE PROFESOR POR NOMBRE///////////////////////////////////
+//elimina la asignatura mediante el nombre en el vector de asignaturasImparte del profesor
+export const eliminarAsignaturaDeProfesorPorNombre = async (nombreProfesor: string, nombreAsignatura: string) => {
+  const profesor = await Profesor.findOne({ nombre: nombreProfesor });
+
+  if (!profesor) {
+    throw new Error('Profesor no encontrado');
+  }
+
+  const asignatura = await Asignatura.findOne({ nombre: nombreAsignatura });
+
+  if (!asignatura) {
+    throw new Error('Asignatura no encontrada');
+  }
+
+  await Profesor.findByIdAndUpdate(profesor._id, {
+    asignaturasImparte: profesor.asignaturasImparte.filter(asignaturaId => asignaturaId.toString() !== asignatura._id.toString())
+  });
+
+  console.log(`Asignatura eliminada de ${nombreProfesor}`);
+};
+
 
 
 
