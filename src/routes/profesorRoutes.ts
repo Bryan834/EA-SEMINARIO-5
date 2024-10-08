@@ -10,11 +10,9 @@ import {
 } from '../services/profesorService';
 
 const router = Router();
-
-// Middleware para habilitar CORS
 router.use(cors());
 
-// Crear un nuevo profesor
+///////////////////////////////////////CREAR PROFESOR//////////////////////////////////////
 router.post('/', async (req: Request, res: Response) => {
   try {
     const { nombre, edad } = req.query; 
@@ -27,7 +25,7 @@ router.post('/', async (req: Request, res: Response) => {
 });
 
 
-// Listar todos los profesores
+///////////////////////////////////////LISTAR PROFESORES//////////////////////////////////////
 router.get('/', async (req: Request, res: Response) => {
   try {
     const profesores = await listarProfesores();
@@ -38,7 +36,7 @@ router.get('/', async (req: Request, res: Response) => {
   }
 });
 
-// Ver un profesor por nombre
+///////////////////////////////////////VER PROFESOR POR NOMBRE/////////////////////////////////////
 router.get('/:nombre', async (req: Request, res: Response) => {
   try {
     const { nombre } = req.params;
@@ -53,7 +51,7 @@ router.get('/:nombre', async (req: Request, res: Response) => {
   }
 });
 
-// Asignar asignaturas a un profesor
+////////////////////////////////ASIGNAR ASIGNATURAS A PROFESOR/////////////////////////////////////
 router.put('/:nombre/asignaturas', async (req: Request, res: Response) => {
   try {
     const { nombre } = req.params;
@@ -66,7 +64,7 @@ router.put('/:nombre/asignaturas', async (req: Request, res: Response) => {
   }
 });
 
-// Eliminar un profesor por nombre
+////////////////////////////////ELIMINAR PROFESOR POR NOMBRE///////////////////////////////////////
 router.delete('/:nombre', async (req: Request, res: Response) => {
   try {
     const { nombre } = req.params;
@@ -82,7 +80,7 @@ router.delete('/:nombre', async (req: Request, res: Response) => {
   }
 });
 
-// Actualizar asignaturas de un profesor por nombre
+////////////////////////////////ACTUALIZAR ASIGNATURAS DE PROFESOR POR NOMBRE///////////////////////////
 router.put('/:nombre/asignaturas/actualizar', async (req: Request, res: Response) => {
   try {
     const { nombre } = req.params;
