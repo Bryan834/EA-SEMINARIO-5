@@ -1,8 +1,8 @@
 import express from 'express';
 import mongoose from 'mongoose';
 import cors from 'cors'; 
-import profesorRoutes from './routes/profesorRoutes';
-import asignaturaRoutes from './routes/asignaturaRoutes';
+import profesorRoutes from './controller/profesorController';
+import asignaturaRoutes from './controller/asignaturaController';
 
 const app = express();
 const PORT = 3000;
