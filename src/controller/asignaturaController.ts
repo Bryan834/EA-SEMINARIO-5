@@ -36,7 +36,7 @@ router.get('/', async (req: Request, res: Response) => {
 // Ver una asignatura por nombre
 router.get('/:nombre', async (req: Request, res: Response) => {
   try {
-    const { nombre } = req.params;
+    const { nombre } = req.body;
     const asignatura = await verAsignaturaPorNombre(nombre);
     if (!asignatura) {
       return res.status(404).json({ error: 'Asignatura no encontrada' });
@@ -51,7 +51,7 @@ router.get('/:nombre', async (req: Request, res: Response) => {
 // Asignar profesores a una asignatura
 router.put('/:nombre/asignar-profesores', async (req: Request, res: Response) => {
   try {
-    const { nombre } = req.params;
+    const { nombre } = req.body;
     const { nombresProfesores } = req.body;
     const asignatura = await asignarProfesoresAAsignatura(nombre, nombresProfesores);
     res.status(200).json(asignatura);
@@ -64,7 +64,7 @@ router.put('/:nombre/asignar-profesores', async (req: Request, res: Response) =>
 // Eliminar una asignatura por nombre
 router.delete('/:nombre', async (req: Request, res: Response) => {
   try {
-    const { nombre } = req.params;
+    const { nombre } = req.body;
     const resultado = await eliminarAsignaturaPorNombre(nombre);
     if (!resultado) {
       return res.status(404).json({ error: 'Asignatura no encontrada' });
@@ -79,7 +79,7 @@ router.delete('/:nombre', async (req: Request, res: Response) => {
 // Actualizar profesores de una asignatura por nombre
 router.put('/:nombre/actualizar-profesores', async (req: Request, res: Response) => {
   try {
-    const { nombre } = req.params;
+    const { nombre } = req.body;
     const { nuevosProfesores } = req.body;
     const asignatura = await actualizarProfesoresAsignaturaPorNombre(nombre, nuevosProfesores);
     res.status(200).json(asignatura);

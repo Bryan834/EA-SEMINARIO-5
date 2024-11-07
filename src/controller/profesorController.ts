@@ -42,7 +42,7 @@ router.get('/', async (req: Request, res: Response) => {
 ///////////////////////////////////////VER PROFESOR POR NOMBRE/////////////////////////////////////
 router.get('/:nombre', async (req: Request, res: Response) => {
   try {
-    const { nombre } = req.params;
+    const { nombre } = req.body;
     const profesor = await verProfesorPorNombre(nombre);
     if (!profesor) {
       return res.status(404).json({ error: 'Profesor no encontrado' });
@@ -57,7 +57,7 @@ router.get('/:nombre', async (req: Request, res: Response) => {
 ////////////////////////////////ASIGNAR ASIGNATURAS A PROFESOR/////////////////////////////////////
 router.put('/:nombre/asignaturas', async (req: Request, res: Response) => {
   try {
-    const { nombre } = req.params;
+    const { nombre } = req.body;
     const { nombresAsignaturas } = req.body;
     const profesor = await asignarAsignaturasAProfesor(nombre, nombresAsignaturas);
     res.status(200).json(profesor);
@@ -69,7 +69,7 @@ router.put('/:nombre/asignaturas', async (req: Request, res: Response) => {
 /////////////////////////////////////////////ELIMINAR ASIGNATURA DE PROFESOR POR NOMBRE//////////////////////////////////
 router.delete('/:nombre/asignaturas', async (req: Request, res: Response) => {
   try {
-    const { nombre } = req.params;
+    const { nombre } = req.body;
     const { nombreAsignatura } = req.body;
     const profesor = await eliminarAsignaturaDeProfesorPorNombre(nombre, nombreAsignatura);
     res.status(200).json(profesor);
@@ -82,7 +82,7 @@ router.delete('/:nombre/asignaturas', async (req: Request, res: Response) => {
 ////////////////////////////////ELIMINAR PROFESOR POR NOMBRE///////////////////////////////////////
 router.delete('/:nombre', async (req: Request, res: Response) => {
   try {
-    const { nombre } = req.params;
+    const { nombre } = req.body;
     const resultado = await eliminarProfesorPorNombre(nombre);
     if (!resultado) {
       return res.status(404).json({ error: 'Profesor no encontrado' });
@@ -98,7 +98,7 @@ router.delete('/:nombre', async (req: Request, res: Response) => {
 ////////////////////////////////ACTUALIZAR ASIGNATURAS DE PROFESOR POR NOMBRE///////////////////////////
 router.put('/:nombre/asignaturas/actualizar', async (req: Request, res: Response) => {
   try {
-    const { nombre } = req.params;
+    const { nombre } = req.body;
     const { nuevasAsignaturas } = req.body;
     const profesor = await actualizarAsignaturasProfesorPorNombre(nombre, nuevasAsignaturas);
     res.status(200).json(profesor);
