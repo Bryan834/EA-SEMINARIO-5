@@ -17,7 +17,8 @@ router.use(cors());
 ///////////////////////////////////////CREAR PROFESOR//////////////////////////////////////
 router.post('/', async (req: Request, res: Response) => {
   try {
-    const { nombre, edad } = req.query; 
+    const { nombre, edad } = req.body; 
+    console.log(nombre, edad);
     const profesor = await crearProfesor(String(nombre), Number(edad)); 
     res.status(201).json(profesor);
   } catch (error) {
